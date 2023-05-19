@@ -68,7 +68,7 @@ class TokenService
     {
         db()
 
-        const token = TokenModel.FindOne({refreshToken})
+        const token = TokenModel.findOne({refreshToken})
         return token
     }
 }
