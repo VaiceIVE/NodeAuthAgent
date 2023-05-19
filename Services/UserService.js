@@ -97,8 +97,6 @@ class UserService
 
         return token
     }
-
-
 }
 
 module.exports = new UserService()
