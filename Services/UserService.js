@@ -7,7 +7,7 @@ const ApiError = require('../Errors/ApiError')
 
 class UserService
 {
-    async Register(username, email, password)
+    async Register(username, email, password, role)
     {
         db()
 
@@ -22,6 +22,7 @@ class UserService
 
         const NewUser = await UserModel.create(
             {
+                role: role,
                 username: username,
                 email: email,
                 password: hashpass
@@ -34,7 +35,7 @@ class UserService
 
         await TokenService.SaveToken(userDto.id, tokens.refreshToken)
 
-        return {...tokens, user: {...userDto, role: "Аналитик"}}
+        return {...tokens, user: userDto}
     }
 
     async Login(email, password, role)
@@ -55,13 +56,15 @@ class UserService
             throw ApiError.BadRequest("Неверный пароль!")
         }
 
+        user.role = role;
+
         const userDto = new UserDTO(user)
 
         const tokens = TokenService.GenerateTokens({...userDto})
 
         await TokenService.SaveToken(userDto.id, tokens.refreshToken)
 
-        return {...tokens, user: {...userDto, role: role}}
+        return {...tokens, user: userDto}
     }
 
     async Refresh(refreshToken)
