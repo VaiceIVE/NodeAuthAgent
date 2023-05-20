@@ -58,6 +58,8 @@ class UserService
 
         user.role = role;
 
+        await user.save();
+
         const userDto = new UserDTO(user)
 
         const tokens = TokenService.GenerateTokens({...userDto})
