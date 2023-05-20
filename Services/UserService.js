@@ -34,10 +34,10 @@ class UserService
 
         await TokenService.SaveToken(userDto.id, tokens.refreshToken)
 
-        return {...tokens, user: userDto}
+        return {...tokens, user: {...userDto, role: "Аналитик"}}
     }
 
-    async Login(email, password)
+    async Login(email, password, role)
     {
         db()
 
@@ -61,7 +61,7 @@ class UserService
 
         await TokenService.SaveToken(userDto.id, tokens.refreshToken)
 
-        return {...tokens, user: userDto}
+        return {...tokens, user: {...userDto, role: role}}
     }
 
     async Refresh(refreshToken)

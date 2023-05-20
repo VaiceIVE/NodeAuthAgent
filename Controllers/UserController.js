@@ -6,9 +6,9 @@ class UserController
     {
         try
         {
-            const {username, email, password} = req.body;
+            const {username, email, password, role} = req.body;
 
-            const userData = await UserService.Register(username, email, password);
+            const userData = await UserService.Register(username, email, password, role);
     
             res.json(userData)
         }
@@ -24,9 +24,9 @@ class UserController
     async Login(req, res, next)
     {
         try {
-            const {email, password} = req.body;
+            const {email, password, role} = req.body;
 
-            const userData = await UserService.Login(email, password)
+            const userData = await UserService.Login(email, password, role)
 
             res.json(userData)
             
