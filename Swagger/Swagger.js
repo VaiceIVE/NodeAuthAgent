@@ -1,16 +1,49 @@
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-import swaggerAutogen from 'swagger-autogen'
+const swaggerAutogen = require('swagger-autogen')()
 
-const _dirname = dirname(fileURLToPath(import.meta.url))
+const outputFile = './swagger_output.json'
+const endpointsFiles = ['./Routers/UserRouter.js']
+const doc = {
+    info: {
+      title: 'Агент авторизации',
+      description: 'Агент для авторизации пользователей в сервисе написанный на NodeJS с хранением данных пользователей на MongoDB',
+    },
+    definitions: {
+        UserResponse:{
+            $refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey3JlbWFpbCI6InNva29sb3Zyb21hbjI1NkBnbWFpbC5jb20iLCJpZCI6IjY0Njc3YjY2MzdkNTljN2QyYTE4ZDU4MyIsInVzZXJuYW1lIjoi0KHQvtC60L7Qu9C-0LIg0KDQvtC80LDQvSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0ODQ4MjkzLCJleHAiOjE2ODY5MjE4OTN9.nvOexFSAQnIFeqT9nv73QnHDWFhoqXKim7TJObvnm_o",
+            $accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNva29sb3Zyb21hbjI1NkBnbWFpbC5jb20iLCJpZCI6IjY0Njc3YjY2MzdkNTljN2QyYTE4ZDU4MyIsInVzZXJuYW1lIjoi0KHQvtC60L7Qu9C-asddlkfvjsdjhfvblakwjhdvfblkjwvbfhkhssd4MjkzLCJleHAiOjE2ODY5MjE4OTN9.nv'lkgjgwljfghojejfhgsdfgkjsdhfhggalsgajfhg'_o",
+            user:
+            {
+                $username: 'Соколов Роман',
+                $id: "646b156e5f5735bddb9db7fd",
+                $email: 'sokolovroman@mail.ru',
+                $role: 'Старший аналитик' 
+            }
+        },
+        UserReg:{
+            $username: 'Соколов Роман',
+            $email: 'sokolovroman@mail.ru',
+            $password: 'Roma`s password',
+            $role: 'Старший аналитик' 
+        },
+        UserLog:{
+            $email: 'sokolovroman@mail.ru',
+            $password: 'Roma`s password',
+            $role: 'Старший аналитик' 
+        },
+        RefreshToken:{
+            $refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey3JlbWFpbCI6InNva29sb3Zyb21hbjI1NkBnbWFpbC5jb20iLCJpZCI6IjY0Njc3YjY2MzdkNTljN2QyYTE4ZDU4MyIsInVzZXJuYW1lIjoi0KHQvtC60L7Qu9C-0LIg0KDQvtC80LDQvSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0ODQ4MjkzLCJleHAiOjE2ODY5MjE4OTN9.nvOexFSAQnIFeqT9nv73QnHDWFhoqXKim7TJObvnm_o"
+        },
+        AccessToken:{
+            $accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNva29sb3Zyb21hbjI1NkBnbWFpbC5jb20iLCJpZCI6IjY0Njc3YjY2MzdkNTljN2QyYTE4ZDU4MyIsInVzZXJuYW1lIjoi0KHQvtC60L7Qu9C-asddlkfvjsdjhfvblakwjhdvfblkjwvbfhkhssd4MjkzLCJleHAiOjE2ODY5MjE4OTN9.nv'lkgjgwljfghojejfhgsdfgkjsdhfhggalsgajfhg'_o"
+        },
+        LogOut:{
+            $acknowledged: true,
+            $deletedCount: 1
+        }
+      },
 
-// const doc = ...
-
-// путь и название генерируемого файла
-const outputFile = join(_dirname, 'output.json')
-// массив путей к роутерам
-const endpointsFiles = [join(_dirname, '../server.js')]
-
-swaggerAutogen(/*options*/)(outputFile, endpointsFiles, doc).then(({ success }) => {
- console.log(`Generated: ${success}`)
-})
+    host: 'localhost:8000',
+    schemes: ['http'],
+    
+  };
+swaggerAutogen(outputFile, endpointsFiles, doc)
