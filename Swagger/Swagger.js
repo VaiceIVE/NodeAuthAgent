@@ -42,7 +42,7 @@ const doc = {
         }
       },
 
-    host: 'localhost:8000',
+    host: '87.242.91.93:8000',
     schemes: ['http'],
     
   };
