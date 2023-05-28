@@ -7,7 +7,7 @@ const ApiError = require('../Errors/ApiError')
 
 class UserService
 {
-    async Register(username, email, password, role)
+    async Register(username, email, password)
     {
         db()
 
@@ -22,7 +22,7 @@ class UserService
 
         const NewUser = await UserModel.create(
             {
-                role: role,
+                role: 'user',
                 username: username,
                 email: email,
                 password: hashpass

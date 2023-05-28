@@ -18,9 +18,9 @@ class UserController
         
         try
         {
-            const {username, email, password, role} = req.body;
+            const {username, email, password} = req.body;
 
-            const userData = await UserService.Register(username, email, password, role);
+            const userData = await UserService.Register(username, email, password);
     
             res.json(userData)
         }
